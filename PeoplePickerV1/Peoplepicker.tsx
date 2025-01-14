@@ -204,7 +204,8 @@ export class PeoplePickerTypes extends BaseComponent<any, IPeoplePickerState> {
         }
         else if (this.props.context.parameters.entityName.raw! === "aaduser") {
           // aaduser --> Display Name = displayname and Mail = mail (displayname,mail)
-          tempPeople = await this.props.context.webAPI.retrieveMultipleRecords(this.props.context.parameters.entityName.raw!, "?$select=displayname,mail,accountenabled&$filter=startswith(displayname,'" + filterText + "')");
+          //tempPeople = await this.props.context.webAPI.retrieveMultipleRecords(this.props.context.parameters.entityName.raw!, "?$select=displayname,mail,accountenabled&$filter=startswith(displayname,'" + filterText + "')");
+          tempPeople = await this.props.context.webAPI.retrieveMultipleRecords(this.props.context.parameters.entityName.raw!, "?$select=displayname,mail,accountenabled&$filter=usertype eq 'Member' and startswith(displayname,'" + filterText + "')");
           await Promise.all(tempPeople.entities.map((entity: any) => {
             // check input parameter to load only active users
             if (this.props.context.parameters.loadEnabledAccounts.raw! === 'true') {
